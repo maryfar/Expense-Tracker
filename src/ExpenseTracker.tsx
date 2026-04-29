@@ -27,6 +27,7 @@ export default function ExpenseTracker() {
       <div className="flex flex-col gap-2">
         <input
           type="text"
+          className="p-2 border border-gray-400 rounded-lg"
           placeholder="Enter Description"
           value={text}
           onChange={(e) => {
@@ -35,6 +36,7 @@ export default function ExpenseTracker() {
         />
         <input
           type="number"
+          className="p-2 border border-gray-400 rounded-lg"
           placeholder="Enter Amount"
           value={amount}
           onChange={(e) => {
@@ -48,9 +50,12 @@ export default function ExpenseTracker() {
           Add Transaction
         </button>
       </div>
-      <ul className="flex flex-col p-4 gap-2 ">
+      <ul className="flex flex-col pt-4 gap-2 w-full ">
         {transactions.map((item, index) => (
-          <li key={index} className="border border-gray-500 rounded-2xl p-2">
+          <li
+            key={index}
+            className="border border-gray-500 rounded-2xl p-2 w-full"
+          >
             {item.text} - {item.amount}{" "}
           </li>
         ))}
