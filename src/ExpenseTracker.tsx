@@ -17,14 +17,18 @@ export default function ExpenseTracker() {
     setText("");
     setAmount("");
   }
+
+  function delteTransaction(id: number) {
+    setTransaction(transactions.filter((item) => item.id != id));
+  }
   return (
-    <div className="border border-b-blue-950 p-4 rounded-2xl flex flex-col items-center justify-center">
+    <div className="border border-b-blue-950 p-4 rounded-2xl flex flex-col items-center justify-center min-w-80">
       <h2>maryam tracker</h2>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full mb-2">
         <div>income</div>
         <div>expense</div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full">
         <input
           type="text"
           className="p-2 border border-gray-400 rounded-lg"
@@ -52,12 +56,17 @@ export default function ExpenseTracker() {
       </div>
       <ul className="flex flex-col pt-4 gap-2 w-full ">
         {transactions.map((item, index) => (
-          <li
-            key={index}
-            className="border border-gray-500 rounded-2xl p-2 w-full"
-          >
-            {item.text} - {item.amount}{" "}
-          </li>
+          <div className=" flex justify-between border border-gray-500 rounded-2xl py-2 px-3 w-full">
+            <li key={index}>
+              {item.text} - {item.amount}{" "}
+            </li>
+            <button
+              className="text-red-500 cursor-pointer"
+              onClick={() => delteTransaction(item.id)}
+            >
+              X
+            </button>
+          </div>
         ))}
       </ul>
     </div>
