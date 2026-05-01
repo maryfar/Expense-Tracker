@@ -21,12 +21,26 @@ export default function ExpenseTracker() {
   function delteTransaction(id: number) {
     setTransaction(transactions.filter((item) => item.id != id));
   }
+
+  let total = 0;
+  transactions.map((item) => (total += item.amount));
+
+  let income = 0;
+  let expense = 0;
+  transactions.map((item) => {
+    if (item.amount > 0) {
+      income += item.amount;
+    } else {
+      expense += item.amount;
+    }
+  });
   return (
     <div className="border border-b-blue-950 p-4 rounded-2xl flex flex-col items-center justify-center min-w-80">
       <h2>maryam tracker</h2>
       <div className="flex flex-col gap-2 w-full mb-2">
-        <div>income</div>
-        <div>expense</div>
+        <div>Balance: $ {total}</div>
+        <div>income: $ {income}</div>
+        <div>expense: $ {expense}</div>
       </div>
       <div className="flex flex-col gap-2 w-full">
         <input
@@ -57,7 +71,10 @@ export default function ExpenseTracker() {
       <ul className="flex flex-col pt-4 gap-2 w-full ">
         {transactions.map((item, index) => (
           <div className=" flex justify-between border border-gray-500 rounded-2xl py-2 px-3 w-full">
-            <li key={index}>
+            <li
+              key={index}
+              className={item.amount > 0 ? "text-green-500" : "text-red-500"}
+            >
               {item.text} - {item.amount}{" "}
             </li>
             <button
