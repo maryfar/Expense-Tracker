@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Transaction } from "./Transactions";
 
 export default function ExpenseTracker() {
-  const [transactions, setTransaction] = useState<Transaction[]>([]);
+  const [transactions, setTransaction] = useState<Transaction[]>(() => {
+    let saveTrans = localStorage.getItem("transactions");
+    return saveTrans ? JSON.parse(saveTrans) : [];
+  });
   const [text, setText] = useState("");
   const [amount, setAmount] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+  }, [transactions]);
 
   function addTransaction() {
     if (!text || !amount) return;
